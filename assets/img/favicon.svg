@@ -1,6 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="10" fill="#0b0b0c"/>
-  <path d="M32 11 53 33h-8.4L32 20.4 19.4 33H11z" fill="#ea9d08"/>
-  <path d="M32 28 45 41h-6.7L32 34.7 25.7 41H19z" fill="#ea9d08" opacity=".7"/>
-  <rect x="18" y="46" width="28" height="6" rx="3" fill="#ea9d08" opacity=".45"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="San Diego Spray Foam">
+  <defs>
+    <linearGradient id="f-gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#f7cf55"/>
+      <stop offset="55%"  stop-color="#ea9d08"/>
+      <stop offset="100%" stop-color="#b87407"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="#0b0b0c"/>
+  <g fill="url(#f-gold)">
+    <rect x="12" y="32" width="11" height="18"/>
+    <path d="M27 50 V20 l5.5 -10 l5.5 10 v30 Z"/>
+    <rect x="42" y="26" width="10" height="24"/>
+    <rect x="8" y="52" width="48" height="5" rx="2.5"/>
+  </g>
 </svg>

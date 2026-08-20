@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="gsi-mark-title">
+  <title id="gsi-mark-title">San Diego Spray Foam</title>
+  <defs>
+    <linearGradient id="gsi-mark-gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#f7cf55"/>
+      <stop offset="55%"  stop-color="#ea9d08"/>
+      <stop offset="100%" stop-color="#b87407"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="64" height="64" rx="13" fill="#0b0b0c"/>
+  <rect x="2.5" y="2.5" width="59" height="59" rx="11" fill="none"
+        stroke="url(#gsi-mark-gold)" stroke-width="2.5" opacity=".55"/>
+
+  <g fill="url(#gsi-mark-gold)">
+    <!-- palm, left -->
+    <path d="M13 46 q1.4 -12 3 -20 l2.6 .5 q-2 8 -3 19.5 Z"/>
+    <path d="M18.6 25.5 q-6.5 -4.2 -11 -1.8 q5.2 -.8 10.4 3 Z"/>
+    <path d="M18.6 25.5 q-1.6 -7.6 -6 -10.4 q3 3.8 4.4 10.8 Z"/>
+    <path d="M19 25.5 q2.6 -7.4 7.6 -9 q-4 3 -5.8 10 Z"/>
+    <path d="M19 25.7 q6.2 -4.6 11.4 -3.2 q-5 .4 -9.8 5 Z"/>
+
+    <!-- skyline -->
+    <rect x="23.5" y="30" width="6.4" height="16"/>
+    <path d="M33 46 V19.5 l3.6 -7.5 l3.6 7.5 V46 Z"/>
+    <rect x="42.6" y="26" width="5.6" height="20"/>
+    <rect x="49.6" y="33" width="4.6" height="13"/>
+
+    <!-- base bar -->
+    <rect x="10" y="48" width="44" height="4" rx="2"/>
+  </g>
+
+  <!-- window notches punched back out in ink -->
+  <g fill="#0b0b0c">
+    <rect x="25.2" y="33" width="1.5" height="2.6"/><rect x="27.6" y="33" width="1.5" height="2.6"/>
+    <rect x="25.2" y="38" width="1.5" height="2.6"/><rect x="27.6" y="38" width="1.5" height="2.6"/>
+    <rect x="35" y="24" width="1.6" height="3"/><rect x="37.4" y="24" width="1.6" height="3"/>
+    <rect x="35" y="30" width="1.6" height="3"/><rect x="37.4" y="30" width="1.6" height="3"/>
+    <rect x="35" y="36" width="1.6" height="3"/><rect x="37.4" y="36" width="1.6" height="3"/>
+    <rect x="44.2" y="29" width="1.5" height="2.6"/><rect x="44.2" y="34" width="1.5" height="2.6"/>
+    <rect x="46.4" y="29" width="1.5" height="2.6"/><rect x="46.4" y="39" width="1.5" height="2.6"/>
+    <rect x="51" y="36" width="1.4" height="2.4"/><rect x="51" y="41" width="1.4" height="2.4"/>
+  </g>
+</svg>

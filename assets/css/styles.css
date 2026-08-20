@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Grand Street Insulation — Design System
+   San Diego Spray Foam — Design System
    Brand: Ink black + Amber (#EA9D08) + warm sand neutrals
    Author note: amber is never used as text on white (2.25:1). On light
    surfaces use --amber-ink (5.8:1); on dark use --amber-400 (8.7:1).
@@ -255,7 +255,7 @@ strong { font-weight: 700; }
 .nav-toggle[aria-expanded="true"] .icon-open { display: none; }
 .nav-toggle[aria-expanded="true"] .icon-close { display: block; }
 
-@media (max-width: 1023px) {
+@media (max-width: 1099px) {
   .nav-toggle { display: inline-flex; }
   .nav {
     position: fixed; inset: var(--header-h) 0 auto 0;
@@ -442,8 +442,16 @@ strong { font-weight: 700; }
 .gallery__item:hover img, .gallery__item:focus-visible img { transform: scale(1.05); }
 .gallery__caption {
   position: absolute; inset: auto 0 0 0; padding: var(--space-6) var(--space-4) var(--space-3);
-  background: linear-gradient(to top, rgba(11,11,12,.9), rgba(11,11,12,0));
+  /* The caption text band sits roughly 19-50% up from the bottom. A gradient
+     that fades to transparent by 50% leaves the top of the text at ~0.45 alpha,
+     which is only 3.15:1 against a white photo - and many of these are white
+     foam. Hold the overlay near-opaque through the whole text band instead. */
+  background: linear-gradient(to top,
+    rgba(11,11,12,.94) 0%,
+    rgba(11,11,12,.90) 55%,
+    rgba(11,11,12,0) 100%);
   color: #fff; font-size: 0.875rem; font-weight: 500; pointer-events: none;
+  text-shadow: 0 1px 2px rgba(11,11,12,.6);
 }
 .gallery__item--wide { grid-column: span 2; aspect-ratio: 16 / 9; }
 @media (max-width: 720px) { .gallery__item--wide { grid-column: span 1; aspect-ratio: 4 / 3; } }
@@ -669,3 +677,26 @@ strong { font-weight: 700; }
 }
 .footer__bottom p { margin: 0; }
 .platform, .card__link, .faq summary { touch-action: manipulation; }
+
+/* --- 25. Header fit ----------------------------------------------------- */
+/* Seven nav items plus phone and CTA wrap onto two lines between roughly
+   1024px and 1200px, which doubles the header height. Keep every label on
+   one line and hand tighter viewports the drawer instead of a cramped bar. */
+.nav__link, .nav__phone, .btn, .link-arrow { white-space: nowrap; }
+@media (min-width: 1100px) {
+  .nav__list { gap: 0; }
+  .nav__link { padding-inline: var(--space-2); }
+}
+
+/* --- 26. Remaining touch targets ---------------------------------------- */
+/* Cross-viewport audit found four inline link groups still under the 44px
+   minimum: breadcrumb links (39x23), the contact panel's tel/mailto links
+   (121x20), heading links inside feature cards, and the 404 footer links. */
+.crumbs a,
+.contact-list a,
+.feature h3 a,
+.footer__bottom a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}

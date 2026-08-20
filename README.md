@@ -1,6 +1,6 @@
-# Grand Street Insulation — website
+# San Diego Spray Foam — website
 
-A static marketing site for Grand Street Insulation, built to be hosted on GitHub Pages.
+A static marketing site for San Diego Spray Foam, built to be hosted on GitHub Pages.
 No build step, no framework, no dependencies — plain HTML, one CSS file, one JS file.
 
 Content and brand colours are carried over from the existing Wix site
@@ -47,24 +47,33 @@ Supporting files: `robots.txt`, `sitemap.xml`, `site.webmanifest`, `CNAME`, `.no
 
 ### Custom domain
 
-`CNAME` currently contains `grandstreetinsulation.com`. To use it:
+`CNAME` currently contains `sandiegosprayfoam.com`. To use it:
 
 - Point the domain's DNS at GitHub Pages (four `A` records for the apex, or a `CNAME`
   record for `www` pointing at `YOUR-USERNAME.github.io`).
 - In **Settings → Pages → Custom domain**, enter the same domain and enable **Enforce HTTPS**.
 
-**If you are not using a custom domain**, do two things:
+**If you are not using a custom domain**, delete the `CNAME` file. While it exists, GitHub
+Pages serves the site at that domain and redirects the `github.io` URL to it — which fails
+until the DNS records are live.
 
-1. Delete the `CNAME` file.
-2. Edit `404.html` and change the six `/assets/...` paths to `/YOUR-REPO-NAME/assets/...`.
-   Every other page uses relative paths and works at any base path — only `404.html`
-   needs absolute paths, because GitHub serves it for URLs that do not exist.
+Every page uses relative asset paths, so the site works unchanged at a domain root or at a
+project subpath like `/grandst/`. Nothing else needs editing for the path.
 
 ### Canonical URLs
 
 Every page has a `<link rel="canonical">`, Open Graph tags and JSON-LD pointing at
-`https://grandstreetinsulation.com`. If the site ends up on a different domain,
-find-and-replace that string across the `.html` files and `sitemap.xml`.
+`https://sandiegosprayfoam.com`. If the site lives somewhere else, replace that string
+everywhere — from the repo root:
+
+```bash
+grep -rl "https://sandiegosprayfoam.com" --include="*.html" --include="*.xml" --include="*.txt" . | xargs sed -i 's|https://sandiegosprayfoam.com|https://YOUR-USERNAME.github.io/YOUR-REPO|g'
+```
+
+Note the `github.io` form has no trailing slash before the page name, so
+`.../YOUR-REPO/about.html` comes out correct. Point canonicals at wherever the site is
+actually reachable — a canonical aimed at a domain that does not resolve will keep the
+pages from being indexed at all.
 
 ---
 
@@ -91,9 +100,13 @@ client-side spam rejection.
 - **Phone / email:** search for `442-413-0520`, `+14424130520` and `sdsprayfoam@gmail.com`
   across the `.html` files. They appear in the header, footer, call bar, CTA bands and
   JSON-LD.
-- **Social links:** the Instagram link is real (`@grandstreetsprayfoam`). The Facebook and
-  Yelp links are placeholders pointing at each platform's search — replace them with the
-  real profile URLs in every `.html` file and in the `sameAs` array in `index.html`.
+- **Social links:** Facebook and Instagram are real profile URLs. The Yelp link is still a
+  placeholder pointing at Yelp's search — replace it in every `.html` file once the profile
+  exists, and add it to the `sameAs` array in `index.html` at that point. It is deliberately
+  **not** in `sameAs` today, because pointing `sameAs` at a search page rather than a real
+  profile is worse than omitting it.
+  - Note the Instagram handle is still `@grandstreetsprayfoam`, from the previous name. If
+    that account gets renamed, update the link and the `sameAs` entry together.
 - **Hours:** currently Mon–Sat 7am–6pm in the footer, contact page and the
   `openingHoursSpecification` in `index.html`. Update all three together.
 
@@ -136,19 +149,35 @@ Defined as CSS custom properties at the top of `assets/css/styles.css`.
 
 ## Decisions worth reviewing
 
-These were judgement calls made while building. Change any of them freely.
+Confirmed by the owner:
 
-1. **San Diego only.** The Wix homepage sells San Diego County and Orange County, but the
-   Attic and Metal Garage pages describe jobs in Connecticut and Massachusetts. This site
-   targets San Diego throughout, and the New England project stories were rewritten without
-   naming a state. If both markets are still active, the service pages need a second
-   service-area section and the second phone number added back.
-2. **One phone number.** `442-413-0520` (the San Diego number from the homepage) is used
-   everywhere. The Connecticut number `860-670-1700` from the older pages is not on the site.
-3. **One email.** `sdsprayfoam@gmail.com`, from the current homepage. The Wix "Schedule a
-   Free Estimate" button used `info@grandstreetinsulation.com` instead — if that inbox is
-   the live one, swap it.
-4. **No testimonial quotes.** The Wix reviews page shows review *screenshots*, so there was
+- **Business name:** San Diego Spray Foam (renamed from Grand Street Insulation).
+- **Phone:** 442-413-0520 · **Email:** sdsprayfoam@gmail.com
+- **Facebook:** https://www.facebook.com/profile.php?id=61592294806452
+
+Still judgement calls — change any of them freely:
+
+1. **Domain is an assumption.** Every canonical URL, Open Graph tag, JSON-LD `@id` and the
+   `CNAME` file use `sandiegosprayfoam.com`, chosen to match the new name. Nobody has
+   confirmed this domain is registered. If it is wrong, fix it everywhere in one pass:
+
+   ```bash
+   grep -rl "sandiegosprayfoam.com" --include="*.html" --include="*.xml" --include="*.txt" --include="*.webmanifest" . CNAME | xargs sed -i 's|sandiegosprayfoam\.com|THE-REAL-DOMAIN.com|g'
+   ```
+
+   Deploying to `username.github.io/<repo>` instead? Delete `CNAME` and point the canonicals
+   at that URL — a canonical aimed at a domain that does not resolve keeps the pages out of
+   the index entirely.
+2. **San Diego only.** The Wix homepage sold San Diego County and Orange County, but its
+   Attic and Metal Garage pages described jobs in Connecticut and Massachusetts. This site
+   targets San Diego throughout, and those project stories were rewritten without naming a
+   state. The Connecticut number `860-670-1700` from the older pages is not on the site. If
+   both markets are still active, the service pages need a second service-area section and
+   that number added back.
+3. **A second email may exist.** The old Wix "Schedule a Free Estimate" button pointed at
+   `info@grandstreetinsulation.com`, not the Gmail address. That inbox is not referenced
+   anywhere on this site — worth checking whether it still receives leads.
+4. **No testimonial quotes.** The Wix reviews page showed review *screenshots*, so there was
    no quotable text to carry over and none was invented. The reviews section links out to
    Google, Yelp, Instagram and Facebook instead. If you have real review text with
    permission to publish it, adding a testimonial section with `Review` schema would be a
@@ -158,3 +187,8 @@ These were judgement calls made while building. Change any of them freely.
    a Google penalty risk.
 6. **Hours** (Mon–Sat, 7am–6pm) were not stated anywhere on the Wix site and are a
    placeholder. Please confirm or correct them.
+7. **The logo is hand-authored SVG**, not a raster export — `assets/img/logo-emblem.svg`
+   (full badge), `logo-mark.svg` (header/compact) and `favicon.svg`. The wordmark uses live
+   text in Arial Black with `textLength`, so it always fits the banner regardless of which
+   font a viewer has. If you ever want it as a PNG, render it with
+   `chrome --headless --screenshot=logo.png --window-size=1000,1000 <path-to-svg>`.

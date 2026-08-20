@@ -1,4 +1,4 @@
-/* Grand Street Insulation — progressive enhancement only.
+/* San Diego Spray Foam — progressive enhancement only.
    Every feature below degrades to working HTML if JS fails. */
 (function () {
   'use strict';
@@ -35,7 +35,7 @@
     });
 
     // Reset state when we cross back to the desktop layout.
-    var desktop = window.matchMedia('(min-width: 1024px)');
+    var desktop = window.matchMedia('(min-width: 1100px)');
     var syncNav = function (mq) { if (mq.matches) closeNav(); };
     if (desktop.addEventListener) desktop.addEventListener('change', syncNav);
     else if (desktop.addListener) desktop.addListener(syncNav);
