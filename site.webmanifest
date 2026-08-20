@@ -1,0 +1,12 @@
+{
+  "name": "Grand Street Insulation",
+  "short_name": "Grand Street",
+  "description": "Spray foam insulation for attics, basements, metal buildings and new construction in San Diego County.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0b0c",
+  "theme_color": "#0b0b0c",
+  "icons": [
+    { "src": "/assets/img/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
