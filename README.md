@@ -47,13 +47,30 @@ Supporting files: `robots.txt`, `sitemap.xml`, `site.webmanifest`, `CNAME`, `.no
 
 ### Custom domain
 
-`CNAME` currently contains `sandiegosprayfoam.com`. To use it:
+The live domain is **`www.sandiegosprayfoamllc.com`**, registered at Squarespace. `CNAME`
+contains exactly that, and every canonical / Open Graph / JSON-LD URL matches it.
 
-- Point the domain's DNS at GitHub Pages (four `A` records for the apex, or a `CNAME`
-  record for `www` pointing at `YOUR-USERNAME.github.io`).
-- In **Settings → Pages → Custom domain**, enter the same domain and enable **Enforce HTTPS**.
+`www` is the canonical host rather than the apex, because the `www` form uses a CNAME to
+`johnpmcdonough5-cloud.github.io` — if GitHub ever changes its edge IPs, that keeps working,
+while apex `A` records would need updating by hand.
 
-**If you are not using a custom domain**, delete the `CNAME` file. While it exists, GitHub
+DNS records required at Squarespace (replace the Squarespace defaults, do not add alongside):
+
+| Host | Type | Data |
+| --- | --- | --- |
+| `www` | CNAME | `johnpmcdonough5-cloud.github.io` |
+| `@` | A | `185.199.108.153` |
+| `@` | A | `185.199.109.153` |
+| `@` | A | `185.199.110.153` |
+| `@` | A | `185.199.111.153` |
+
+The four apex `A` records are optional — they exist only so someone typing the bare domain
+gets redirected to `www` instead of hitting nothing.
+
+Then set **Settings → Pages → Custom domain** to `www.sandiegosprayfoamllc.com` and, once the
+certificate finishes provisioning, tick **Enforce HTTPS**.
+
+**If you ever stop using a custom domain**, delete the `CNAME` file. While it exists, GitHub
 Pages serves the site at that domain and redirects the `github.io` URL to it — which fails
 until the DNS records are live.
 
@@ -63,11 +80,11 @@ project subpath like `/grandst/`. Nothing else needs editing for the path.
 ### Canonical URLs
 
 Every page has a `<link rel="canonical">`, Open Graph tags and JSON-LD pointing at
-`https://sandiegosprayfoam.com`. If the site lives somewhere else, replace that string
+`https://www.sandiegosprayfoamllc.com`. If the site lives somewhere else, replace that string
 everywhere — from the repo root:
 
 ```bash
-grep -rl "https://sandiegosprayfoam.com" --include="*.html" --include="*.xml" --include="*.txt" . | xargs sed -i 's|https://sandiegosprayfoam.com|https://YOUR-USERNAME.github.io/YOUR-REPO|g'
+grep -rl "https://www.sandiegosprayfoamllc.com" --include="*.html" --include="*.xml" --include="*.txt" . | xargs sed -i 's|https://www.sandiegosprayfoamllc.com|https://YOUR-USERNAME.github.io/YOUR-REPO|g'
 ```
 
 Note the `github.io` form has no trailing slash before the page name, so
@@ -157,17 +174,16 @@ Confirmed by the owner:
 
 Still judgement calls — change any of them freely:
 
-1. **Domain is an assumption.** Every canonical URL, Open Graph tag, JSON-LD `@id` and the
-   `CNAME` file use `sandiegosprayfoam.com`, chosen to match the new name. Nobody has
-   confirmed this domain is registered. If it is wrong, fix it everywhere in one pass:
+1. **Domain — confirmed.** `www.sandiegosprayfoamllc.com`, registered at Squarespace. See
+   the Custom domain section above for the DNS records. To move the site somewhere else
+   later, rewrite every URL in one pass:
 
    ```bash
-   grep -rl "sandiegosprayfoam.com" --include="*.html" --include="*.xml" --include="*.txt" --include="*.webmanifest" . CNAME | xargs sed -i 's|sandiegosprayfoam\.com|THE-REAL-DOMAIN.com|g'
+   grep -rl "www.sandiegosprayfoamllc.com" --include="*.html" --include="*.xml" --include="*.txt" . CNAME | xargs sed -i 's|www\.sandiegosprayfoamllc\.com|THE-NEW-DOMAIN.com|g'
    ```
 
-   Deploying to `username.github.io/<repo>` instead? Delete `CNAME` and point the canonicals
-   at that URL — a canonical aimed at a domain that does not resolve keeps the pages out of
-   the index entirely.
+   A canonical aimed at a domain that does not resolve keeps the pages out of the index
+   entirely, so change `CNAME` and the canonicals together.
 2. **San Diego only.** The Wix homepage sold San Diego County and Orange County, but its
    Attic and Metal Garage pages described jobs in Connecticut and Massachusetts. This site
    targets San Diego throughout, and those project stories were rewritten without naming a
